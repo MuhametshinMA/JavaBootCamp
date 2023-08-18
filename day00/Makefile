@@ -1,4 +1,4 @@
-TRASH= ex00/*.class ex01/*.class ex02/*.class
+TRASH= ex00/*.class ex01/*.class ex02/*.class ex03/*.class
 
 clean:
 	rm -rf $(TRASH)
@@ -14,3 +14,7 @@ run_ex01:
 run_ex02:
 	javac ex02/Program.java
 	java -cp ex02/ Program
+
+run_ex03:
+	javac ex03/Program.java
+	java -cp ex03/ Program
