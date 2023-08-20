@@ -9,46 +9,89 @@ public class Program {
     System.out.print("-> ");
     String charSequence = scanner.nextLine();
     scanner.close();
+    // for (int i = 0; i < charSequence.length(); ++i) {
+    // System.out.println((int)charSequence.charAt(i) - 32);
+    // }
 
     int[] charArray = getCharRating(charSequence);
     int[][] charRatingMatrix = getNotNullChar(charArray);
     sortCharMatrix(charRatingMatrix);
     int[][] graphMatrix = createGraphMatrix(charRatingMatrix);
 
-    // printMatrixCharsRating(charRatingMatrix);
     grawGraph(graphMatrix);
+    System.out.println();
+    grawGraph1(graphMatrix);
+    grawGraph2(graphMatrix);
+    // printMatrixCharsRating(graphMatrix);
+    // jro p2ru 9-0tu8 q30[94ty 308uyt 08342[ yf8043 yt0q3 w4gy[08vwf83ytg08 qherg
+    // vs;odfhi ;`owiyf '9uy24t[ 2ut [ 0wygoiq wher
   }
 
   public static void grawGraph(int[][] matrix) {
     for (int r = 0; r < matrix.length; ++r) {
       for (int c = 0; c < matrix[r].length; ++c) {
-        System.out.println(matrix[r][c]);
+        System.out.print(matrix[r][c] + " ");
       }
+      System.out.println();
+    }
+  }
+
+  public static void grawGraph1(int[][] matrix) {
+    for (int r = 0; r < matrix.length; ++r) {
+      for (int c = 0; c < matrix[r].length; ++c) {
+        if (c == (matrix[r][12] + 1)) {
+          System.out.print(matrix[r][c] + " ");
+        } else {
+          System.out.print((char) matrix[r][c] + " ");
+        }
+      }
+      System.out.println();
+    }
+  }
+
+  public static void grawGraph2(int[][] matrix) {
+    for (int c = matrix[0].length - 1; c >= 0; --c) {
+      for (int r = 0; r < matrix.length; ++r) {
+        if ((matrix[r][12] + 1) == c) {
+          System.out.print("  " + matrix[r][c]);
+        } else {
+          System.out.print("  " + (char) matrix[r][c]);
+        }
+      }
+      System.out.println();
     }
   }
 
   public static int[][] createGraphMatrix(int[][] matrix) {
     int lengthMatrix = 0;
-    if (matrix.length > 10) {
+    if (matrix.length < 10) {
       lengthMatrix = matrix.length;
     } else {
       lengthMatrix = 10;
     }
-    int[][] graphMatrix = new int[lengthMatrix][12];
+    int[][] graphMatrix = new int[lengthMatrix][13];
     for (int r = 0; r < graphMatrix.length; ++r) {
       for (int c = 0; c < graphMatrix[r].length; ++c) {
         graphMatrix[r][c] = 32;
       }
     }
 
-    double sharpQuotient = matrix[0][1] / 10;
-    for (int r = 0; r < matrix.length; ++r) {
-      int countSharp = matrix[r][1] / (int) sharpQuotient;
+    double sharpQuotient = (double) matrix[0][1] / 10;
+    for (int r = 0; r < graphMatrix.length; ++r) {
+      double countSharp = (double) matrix[r][1] / sharpQuotient;
+      int c = (int) countSharp;
       graphMatrix[r][0] = matrix[r][0];
-      graphMatrix[r][countSharp] = matrix[r][1];
-      // fillSharps()
+      graphMatrix[r][c + 1] = matrix[r][1];
+      graphMatrix[r][graphMatrix[r].length - 1] = c;
+      fillSharps(graphMatrix, r, c);
     }
     return graphMatrix;
+  }
+
+  public static void fillSharps(int[][] matrix, int index, int sharpLimit) {
+    for (int c = 1; c <= sharpLimit; ++c) {
+      matrix[index][c] = '#';
+    }
   }
 
   public static void sortCharMatrix(int[][] matrix) {
