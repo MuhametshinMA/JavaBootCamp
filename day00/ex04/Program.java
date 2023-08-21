@@ -4,62 +4,40 @@ import java.util.Scanner;
 
 public class Program {
   public static void main(String[] args) {
-    // Ввод текста с консоли
     Scanner scanner = new Scanner(System.in);
     System.out.print("-> ");
+
     String charSequence = scanner.nextLine();
     scanner.close();
-    // for (int i = 0; i < charSequence.length(); ++i) {
-    // System.out.println((int)charSequence.charAt(i) - 32);
-    // }
 
     int[] charArray = getCharRating(charSequence);
     int[][] charRatingMatrix = getNotNullChar(charArray);
     sortCharMatrix(charRatingMatrix);
     int[][] graphMatrix = createGraphMatrix(charRatingMatrix);
-
-    grawGraph(graphMatrix);
     System.out.println();
-    grawGraph1(graphMatrix);
-    grawGraph2(graphMatrix);
-    // printMatrixCharsRating(graphMatrix);
-    // jro p2ru 9-0tu8 q30[94ty 308uyt 08342[ yf8043 yt0q3 w4gy[08vwf83ytg08 qherg
-    // vs;odfhi ;`owiyf '9uy24t[ 2ut [ 0wygoiq wher
+    grawGraph(graphMatrix);
   }
 
   public static void grawGraph(int[][] matrix) {
-    for (int r = 0; r < matrix.length; ++r) {
-      for (int c = 0; c < matrix[r].length; ++c) {
-        System.out.print(matrix[r][c] + " ");
-      }
-      System.out.println();
-    }
-  }
-
-  public static void grawGraph1(int[][] matrix) {
-    for (int r = 0; r < matrix.length; ++r) {
-      for (int c = 0; c < matrix[r].length; ++c) {
-        if (c == (matrix[r][12] + 1)) {
-          System.out.print(matrix[r][c] + " ");
-        } else {
-          System.out.print((char) matrix[r][c] + " ");
-        }
-      }
-      System.out.println();
-    }
-  }
-
-  public static void grawGraph2(int[][] matrix) {
-    for (int c = matrix[0].length - 1; c >= 0; --c) {
+    for (int c = matrix[0].length - 2; c >= 0; --c) {
       for (int r = 0; r < matrix.length; ++r) {
         if ((matrix[r][12] + 1) == c) {
-          System.out.print("  " + matrix[r][c]);
+          printNumSpace(matrix[r][c]);
         } else {
           System.out.print("  " + (char) matrix[r][c]);
         }
       }
       System.out.println();
     }
+  }
+
+  public static void printNumSpace(int num) {
+    int orderNum = (int) Math.log10(num) + 1;
+    int countSpace = 3 - orderNum;
+    for (int i = 0; i < countSpace; ++i) {
+      System.out.print(" ");
+    }
+    System.out.print(num);
   }
 
   public static int[][] createGraphMatrix(int[][] matrix) {
@@ -98,12 +76,6 @@ public class Program {
     Arrays.sort(matrix, Comparator.comparingInt((int[] a) -> a[1]).reversed());
   }
 
-  public static void printMatrixCharsRating(int[][] matrix) {
-    for (int i = 0; i < matrix.length; ++i) {
-      System.out.println("i: " + i + " char: " + (char) matrix[i][0] + " rating: " + matrix[i][1]);
-    }
-  }
-
   public static int[][] getNotNullChar(int[] arr) {
     int notNullCountChar = 0;
     for (int i = 0; i < arr.length; ++i) {
@@ -123,16 +95,6 @@ public class Program {
     }
 
     return charMatrix;
-  }
-
-  public static void drawGraphRating(int[] charArray) {
-
-  }
-
-  public static void printCharRating(int[] charArray) {
-    for (int i = 0; i < charArray.length; ++i) {
-      System.out.println("code: " + i + " char: " + (char) (i + 32) + ": " + charArray[i]);
-    }
   }
 
   public static int[] getCharRating(String chars) {
