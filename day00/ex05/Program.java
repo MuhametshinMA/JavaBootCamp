@@ -27,11 +27,82 @@ public class Program {
         }
       }
     }
+    String[][] sheduleDates = makeSheduleDates(students, lessons);
+
+    String[][] shedule = makeShedule(sheduleDates, attendance, students);
+    // printSheduleDate(sheduleDates);
+
     sc.close();
 
-    printAttendance(attendance);
-    printLessons(lessons);
-    // printStudents(students);
+  }
+
+  public static String[][] makeShedule(String[][] sheduleDates, String[][] attendance, String[] students) {
+    String[][] shedule = new String[students.length + 1][sheduleDates.length + 1];
+    shedule[0][0] = "          ";
+    for (int i = 0; i < sheduleDates.length; ++i) {
+      shedule[0][i + 1] = sheduleDates[i][0] + ":00 " + sheduleDates[i][1] + getAlignedStr(sheduleDates[i][2], 3);
+    }
+
+    for (int i = 0; i < students.length; ++i) {
+      shedule[i + 1][0] = getAlignedStr(students[i], 10);
+    }
+
+    for (int i = 1; i < students.length + 1; ++i) {
+      for (int j = 1; j < sheduleDates.length + 1; ++j) {
+        shedule[i][j] = getAlignedStr("$", 10);
+      }
+    }
+
+    printShedule(shedule);
+    return shedule;
+  }
+
+  public static String[][] makeSheduleDates(String[] students, String[][] lessons) {
+    String[] dayMonth = { "TU", "WE", "TH", "FR", "SA", "SU", "MO",
+        "TU", "WE", "TH", "FR", "SA", "SU", "MO",
+        "TU", "WE", "TH", "FR", "SA", "SU", "MO",
+        "TU", "WE", "TH", "FR", "SA", "SU", "MO",
+        "TU", "WE" };
+
+    String[][] sheduleDates = new String[0][3];
+    for (int i = 0; i < dayMonth.length; ++i) {
+      for (int j = 0; j < lessons.length; ++j) {
+
+        if (dayMonth[i].equals(lessons[j][1])) {
+          sheduleDates = addSheduleItem(sheduleDates, lessons[j], i + 1);
+        }
+      }
+    }
+    return sheduleDates;
+  }
+
+  public static String getAlignedStr(String str, int desiredLength) {
+    int numSpaces = desiredLength - str.length();
+    if (numSpaces <= 0) {
+      return str;
+    } else {
+      String spaces = String.format("%" + numSpaces + "s", "");
+      return spaces + str;
+    }
+  }
+
+  public static void printNumSpace(int num) {
+    int orderNum = (int) Math.log10(num) + 1;
+    int countSpace = 3 - orderNum;
+    for (int i = 0; i < countSpace; ++i) {
+      System.out.print(" ");
+    }
+    System.out.print(num);
+  }
+
+  public static String[][] addSheduleItem(String[][] shedule, String[] lesson, int dayMonth) {
+    String[] sheduleItem = new String[3];
+    sheduleItem[0] = lesson[0];
+    sheduleItem[2] = String.valueOf(dayMonth);
+    sheduleItem[1] = lesson[1];
+    shedule = Arrays.copyOf(shedule, shedule.length + 1);
+    shedule[shedule.length - 1] = sheduleItem;
+    return shedule;
   }
 
   public static String[][] addAttendance(String[][] attendance, String newAttendance) {
@@ -117,7 +188,7 @@ public class Program {
 
   public static void checkTimeInterval(String time) {
     int intTime = Integer.parseInt(time);
-    if (intTime < 13 || intTime > 16) {
+    if (intTime < 1 || intTime > 4) {
       System.err.println("invalid argument: incorrect time interval");
       System.exit(1);
     }
@@ -143,6 +214,24 @@ public class Program {
     students = Arrays.copyOf(students, students.length + 1);
     students[students.length - 1] = newStudent;
     return students;
+  }
+
+  public static void printShedule(String[][] shedule) {
+    for (int s = 0; s < shedule.length; ++s) {
+      for (int i = 0; i < shedule[0].length; ++i) {
+        System.out.print(shedule[s][i] + "|");
+      }
+      System.out.println();
+    }
+  }
+
+  public static void printSheduleDate(String[][] shedule) {
+    for (int i = 0; i < shedule.length; ++i) {
+      System.out.print(shedule[i][0] + ":00 " + shedule[i][1]);
+      printNumSpace(Integer.parseInt(shedule[i][2]));
+      System.out.print("|");
+    }
+    System.out.println();
   }
 
   public static void printAttendance(String[][] attendance) {
