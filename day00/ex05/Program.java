@@ -16,13 +16,10 @@ public class Program {
         ++countPoints;
       } else {
         if (countPoints == 0) {
-          // System.out.println("list students:");
           students = addStudent(students, line);
         } else if (countPoints == 1) {
-          // System.out.println("shedule lessons:");
           lessons = addLesson(lessons, line);
         } else if (countPoints == 2) {
-          // System.out.println("attendance:");
           attendance = addAttendance(attendance, line);
         }
       }
@@ -241,34 +238,4 @@ public class Program {
       System.out.println();
     }
   }
-
-  // public static void printSheduleDate(String[][] shedule) {
-  // for (int i = 0; i < shedule.length; ++i) {
-  // System.out.print(shedule[i][0] + ":00 " + shedule[i][1]);
-  // printNumSpace(Integer.parseInt(shedule[i][2]));
-  // System.out.print("|");
-  // }
-  // System.out.println();
-  // }
-
-  // public static void printAttendance(String[][] attendance) {
-  // for (int i = 0; i < attendance.length; ++i) {
-  // System.out
-  // .println("name: " + attendance[i][0] + " time: " + attendance[i][1] + " date:
-  // " + attendance[i][2]
-  // + " visit: " + attendance[i][3]);
-  // }
-  // }
-
-  // public static void printStudents(String[] students) {
-  // for (String string : students) {
-  // System.out.println(string);
-  // }
-  // }
-
-  // public static void printLessons(String[][] lessons) {
-  // for (int i = 0; i < lessons.length; ++i) {
-  // System.out.println("day: " + lessons[i][1] + " time: " + lessons[i][0]);
-  // }
-  // }
 }
