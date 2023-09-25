@@ -22,11 +22,18 @@
       <scope>test</scope>
     </dependency>
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.fusesource.jansi/jansi &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>org.fusesource.jansi</groupId>-->
-<!--      <artifactId>jansi</artifactId>-->
-<!--      <version>1.18</version>-->
-<!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/com.diogonunes/JCDP -->
+    <dependency>
+      <groupId>com.diogonunes</groupId>
+      <artifactId>JCDP</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.fusesource.jansi/jansi -->
+    <dependency>
+      <groupId>org.fusesource.jansi</groupId>
+      <artifactId>jansi</artifactId>
+      <version>1.18</version>
+    </dependency>
   </dependencies>
 </project>
